@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE score-partwise  PUBLIC "-//Recordare//DTD MusicXML 3.1 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise version="3.1">
+<!DOCTYPE score-partwise  PUBLIC "-//Recordare//DTD MusicXML 4.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise version="4.0">
   <work>
     <work-title>Simple Melody</work-title>
   </work>
@@ -9,7 +9,7 @@
     <creator type="composer">Your Name</creator>
     <encoding>
       <encoding-date>2024-06-05</encoding-date>
-      <software>music21 v.7.3.3</software>
+      <software>music21 v.9.1.0</software>
     </encoding>
   </identification>
   <defaults>
@@ -19,14 +19,14 @@
     </scaling>
   </defaults>
   <part-list>
-    <score-part id="Pa779d460c914801b2e3dd78fb8fb2e8b">
+    <score-part id="Pf003ff6734a12e66fb515db488e4fdfd">
       <part-name />
     </score-part>
   </part-list>
   <!--=========================== Part 1 ===========================-->
-  <part id="Pa779d460c914801b2e3dd78fb8fb2e8b">
+  <part id="Pf003ff6734a12e66fb515db488e4fdfd">
     <!--========================= Measure 1 ==========================-->
-    <measure number="1">
+    <measure implicit="no" number="1">
       <attributes>
         <divisions>10080</divisions>
         <time>
@@ -72,7 +72,7 @@
       </note>
     </measure>
     <!--========================= Measure 2 ==========================-->
-    <measure number="2">
+    <measure implicit="no" number="2">
       <note>
         <pitch>
           <step>G</step>
