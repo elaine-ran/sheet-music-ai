@@ -17,10 +17,7 @@ def time_stretch(data_path, metadata_path, copynum, rate=None):
         if "copy" not in file_path:
             y, sr = librosa.load(file_path + ".wav")
             y_stretch = librosa.effects.time_stretch(y, rate=rate)
-            if copynum == 1:
-                output_path = f"{file_path} copy.wav"
-            else:
-                output_path = f"{file_path} copy {copynum}.wav"
+            output_path = f"{file_path} copy {copynum}.wav"
             sf.write(output_path, y_stretch, sr)
 
 def add_noise(data_path, metadata_path, copynum):
@@ -35,10 +32,7 @@ def add_noise(data_path, metadata_path, copynum):
             noise_amp = 0.005 * np.amax(y)
             noise = noise_amp * np.random.normal(size=y.shape)
             y_noisy = y + noise
-            if copynum == 1:
-                output_path = f"{file_path} copy.wav"
-            else:
-                output_path = f"{file_path} copy {copynum}.wav"
+            output_path = f"{file_path} copy {copynum}.wav"
             sf.write(output_path, y_noisy, sr)
 
 def time_stretch_and_add_noise(data_path, metadata_path, copynum, rate=random.uniform(0.1, 3.0)):
@@ -54,10 +48,7 @@ def time_stretch_and_add_noise(data_path, metadata_path, copynum, rate=random.un
                 noise = noise_amp * np.random.normal(size=y.shape)
                 y_noisy = y + noise
                 y_stretch = librosa.effects.time_stretch(y_noisy, rate=rate)
-                if copynum == 1:
-                    output_path = f"{file_path} copy.wav"
-                else:
-                    output_path = f"{file_path} copy {copynum}.wav"
+                output_path = f"{file_path} copy {copynum}.wav"
                 sf.write(output_path, y_stretch, sr)
 
 
