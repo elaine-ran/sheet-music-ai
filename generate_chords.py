@@ -40,16 +40,13 @@ def align_and_sum_notes(isolated_notes, chosen_notes):
     
     return chord
     
-def generate_random_chords(isolated_notes, num_chords=5, min_notes=3, max_notes=3):
-
+def generate_random_chords(isolated_notes, num_chords, min_notes=2, max_notes=8):
     df = pd.DataFrame()
 
     chords = []
     chords_notes = []
     file_names = []
-    notes_1 = []
-    notes_2 = []
-    notes_3 = []
+    num_notes = []
     note_names = list(isolated_notes.keys())
 
     for _ in range(num_chords):
@@ -59,19 +56,17 @@ def generate_random_chords(isolated_notes, num_chords=5, min_notes=3, max_notes=
         chord = align_and_sum_notes(isolated_notes, chosen_notes)
         chords.append(chord)
         chords_notes.append(chosen_notes)
+        file_names.append(f"chord_{_+1}")
+        num_notes.append(num_notes_in_chord)
     
-    for i in range(num_chords):
-        file_names.append(f"chords_{i+1}")
-        notes_1.append(chords_notes[i][0])
-        notes_2.append(chords_notes[i][1])
-        notes_3.append(chords_notes[i][2])
-
-
-    
+    # Prepare the DataFrame columns
     df['File Names'] = file_names
-    df['Note 1'] = notes_1
-    df['Note 2'] = notes_2
-    df['Note 3'] = notes_3
+    df['Number of Notes'] = num_notes
+    
+    # Create columns for notes
+    for i in range(1, 9):
+        df[f'Note {i}'] = [chords_notes[j][i-1] if i <= len(chords_notes[j]) else '' for j in range(num_chords)]
+    
     df.to_csv('piano_chords.csv', index=False)
 
     return chords, chords_notes
@@ -87,7 +82,7 @@ metadata_path = '/Users/elaineran/Desktop/summer-project/piano_notes.csv'
 
 isolated_notes = load_isolated_notes(data_path,metadata_path)
 
-num_chords = 10
+num_chords = 10000
 chords, chords_notes = generate_random_chords(isolated_notes, num_chords)
 
     # Save the generated chords
