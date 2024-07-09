@@ -17,15 +17,26 @@ def load_isolated_notes(directory, csvpath):
             notes[note_name] = note
     return notes
 
+def find_note_start(note, threshold=0.01):
+    """
+    Find the start index of a note where the signal first exceeds a given threshold.
+    """
+    for i, value in enumerate(note):
+        if np.abs(value) > threshold:
+            return i
+    return len(note)  # Return the end if no value exceeds the threshold
+
 def align_and_sum_notes(isolated_notes, chosen_notes):
-    # Find the peaks of the notes
-    peaks = [np.argmax(np.abs(isolated_notes[note])) for note in chosen_notes]
+    # Find the start index of each note
+    starts = [find_note_start(isolated_notes[note]) for note in chosen_notes]
     
-    # Determine the minimum peak index and align all notes based on this
-    min_peak = min(peaks)
+    # Determine the earliest start index
+    earliest_start = min(starts)
+    
+    # Align each note to the earliest start index
     aligned_notes = []
-    for peak, note in zip(peaks, chosen_notes):
-        start_idx = peak - min_peak
+    for start, note in zip(starts, chosen_notes):
+        start_idx = start - earliest_start
         if start_idx < 0:
             aligned_note = np.pad(isolated_notes[note], (abs(start_idx), 0), 'constant')
         else:
@@ -35,8 +46,11 @@ def align_and_sum_notes(isolated_notes, chosen_notes):
     # Determine the minimum length of the aligned notes
     min_length = min(len(note) for note in aligned_notes)
     
+    # Trim all aligned notes to the minimum length
+    aligned_notes = [note[:min_length] for note in aligned_notes]
+    
     # Sum the aligned notes
-    chord = np.sum([note[:min_length] for note in aligned_notes], axis=0)
+    chord = np.sum(aligned_notes, axis=0)
     
     return chord
     
@@ -82,7 +96,7 @@ metadata_path = '/Users/elaineran/Desktop/summer-project/piano_notes.csv'
 
 isolated_notes = load_isolated_notes(data_path,metadata_path)
 
-num_chords = 10000
+num_chords = 1000
 chords, chords_notes = generate_random_chords(isolated_notes, num_chords)
 
     # Save the generated chords
