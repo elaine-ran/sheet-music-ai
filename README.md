@@ -1,3 +1,3 @@
-# summer-project
+# Sheet Music AI
 
-Chloe and Elaine work on machine learning!
+Training AI models to extract key and time signatures from piano music!
